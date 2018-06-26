@@ -21,6 +21,7 @@ export interface DispatchProps {
     onSetPadding(padding: number): actions.SetImagePadding;
     onAddImage(images: SpriteImage[]): actions.AddImage;
     onRemoveImage(index: number): actions.RemoveImage;
+    onReplaceImage(index: number, image: SpriteImage): actions.ReplaceImage;
     onMoveImage(oldIndex: number, newIndex: number): actions.MoveImage;
     onClearImage(): actions.ClearImage
 }
@@ -36,6 +37,8 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         this.changePadding = this.changePadding.bind(this);
         this.changeImage = this.changeImage.bind(this);
         this.clearImage = this.clearImage.bind(this);
+        this.removeImage = this.removeImage.bind(this);
+        this.replaceImage = this.replaceImage.bind(this);
     }
     public activeUpload() {
         if(this.fileInput.current) {
@@ -67,9 +70,25 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
     public clearImage() {
         this.props.onClearImage();
     }
+    public removeImage(event: React.SyntheticEvent<EventTarget>) {
+        const target = event.target as HTMLElement;
+        if(target.dataset.index) {
+            this.props.onRemoveImage(parseInt(target.dataset.index, 10));
+        }
+    }
+    public replaceImage(event: React.SyntheticEvent<EventTarget>) {
+        const target = event.target as HTMLElement;
+        if(target.dataset.index) {
+            this.props.onReplaceImage(parseInt(target.dataset.index, 10), {
+                name: 'test',
+                size: 0,
+                source: 'test'
+            });
+        }
+    }
     public render() {
         const { style, padding, images } = this.props;
-        const { activeUpload, changeStyle, changePadding, changeImage, clearImage, fileInput } = this;
+        const { activeUpload, fileInput, changeStyle, changePadding, changeImage, clearImage, removeImage, replaceImage } = this;
         const styles = ['vertical', 'horizontal', 'vertical_wrapped', 'horizontal_wrapped'];
 
         return (
@@ -96,6 +115,8 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                             {images.map((image, index) => 
                                 <li className="image-item" key={index}>
                                     <img className="image-cover" src={image.source} alt="IMAGE" />
+                                    <div className="image-remove" data-index={index} onClick={removeImage}>Delete</div>
+                                    <div className="image-replace" data-index={index} onClick={replaceImage}>Replace</div>
                                 </li>
                             )}
                         </ul>

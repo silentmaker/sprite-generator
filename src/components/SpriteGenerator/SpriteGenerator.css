@@ -107,6 +107,24 @@ html, body {
     width: auto;
 }
 
+.image-remove,
+.image-replace {
+    display: none;
+    color: #b7b7b7;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 32px;
+    cursor: pointer;
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+}
+.image-remove {
+    color: red;
+}
+.image-item:hover .image-remove,
+.image-item:hover .image-replace {
+    display: block;
+}
+
 .image-clear {
     width: 120px;
     height: 48px;
