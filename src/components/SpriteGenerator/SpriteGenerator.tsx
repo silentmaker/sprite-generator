@@ -10,6 +10,10 @@ export interface SpriteImage {
     source: string;
 }
 
+export interface State {
+    replacingIndex: number;
+}
+
 export interface StateProps {
     style: string;
     padding: number;
@@ -26,12 +30,14 @@ export interface DispatchProps {
     onClearImage(): actions.ClearImage
 }
 
-export class SpriteGenerator extends React.Component<StateProps & DispatchProps, object> {
+export class SpriteGenerator extends React.Component<StateProps & DispatchProps, State> {
     private fileInput: React.RefObject<HTMLInputElement>
+    private replaceInput: React.RefObject<HTMLInputElement>
 
     constructor(props: StateProps & DispatchProps) {
         super(props);
         this.fileInput = React.createRef();
+        this.replaceInput = React.createRef();
         this.activeUpload = this.activeUpload.bind(this);
         this.changeStyle = this.changeStyle.bind(this);
         this.changePadding = this.changePadding.bind(this);
@@ -39,6 +45,10 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         this.clearImage = this.clearImage.bind(this);
         this.removeImage = this.removeImage.bind(this);
         this.replaceImage = this.replaceImage.bind(this);
+        this.selectReplaceImage = this.selectReplaceImage.bind(this);
+        this.state = {
+            replacingIndex: 0
+        };
     }
     public activeUpload() {
         if(this.fileInput.current) {
@@ -78,17 +88,35 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
     }
     public replaceImage(event: React.SyntheticEvent<EventTarget>) {
         const target = event.target as HTMLElement;
+        
+        if(this.replaceInput.current) {
+            this.replaceInput.current.click();
+        }
         if(target.dataset.index) {
-            this.props.onReplaceImage(parseInt(target.dataset.index, 10), {
-                name: 'test',
-                size: 0,
-                source: 'test'
+            this.setState({
+                replacingIndex: parseInt(target.dataset.index, 10)
             });
+        }
+    }
+    public selectReplaceImage(event: React.ChangeEvent<HTMLInputElement>) {
+        if(event.target.files) {
+            const tmpImage = event.target.files[0];
+
+            this.props.onReplaceImage(this.state.replacingIndex, {
+                name: tmpImage.name,
+                size: tmpImage.size,
+                source: URL.createObjectURL(tmpImage)
+            });
+        }
+        if (this.replaceInput.current) {
+            this.replaceInput.current.value = "";
         }
     }
     public render() {
         const { style, padding, images } = this.props;
-        const { activeUpload, fileInput, changeStyle, changePadding, changeImage, clearImage, removeImage, replaceImage } = this;
+        const { activeUpload, fileInput, replaceInput, changeStyle, 
+            changePadding, changeImage, clearImage, 
+            removeImage, replaceImage, selectReplaceImage } = this;
         const styles = ['vertical', 'horizontal', 'vertical_wrapped', 'horizontal_wrapped'];
 
         return (
@@ -125,8 +153,10 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                         <button className="button" onClick={activeUpload}>UPLOAD</button>
                     </div>
 
-                    <input type="file" className="hidden" accept="images/*" multiple={true} 
+                    <input type="file" name="addImage" className="hidden" accept="images/*" multiple={true} 
                         ref={fileInput} onChange={changeImage} />
+                    <input type="file" name="replaceImage" className="hidden" accept="images/*" 
+                        ref={replaceInput} onChange={selectReplaceImage} />
                 </div>
             </div>
         );

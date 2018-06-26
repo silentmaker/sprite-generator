@@ -58,6 +58,7 @@ html, body {
     background-color: #fff;
     max-width: 1024px;
     margin: 0 auto;
+    border-radius: 2px;
 }
 
 .image-list {
@@ -92,6 +93,7 @@ html, body {
 }
 
 .image-item {
+    position: relative;
     cursor: pointer;
     margin: 0;
     padding: 0;
@@ -99,8 +101,8 @@ html, body {
 }
 
 .image-item:hover {
-    border: none;
-    box-shadow: 0 4px 16px 4px rgba(0, 0, 0, .1);
+    border: solid 1px #eee;
+    background-color: #eee;
 }
 
 .image-cover {
@@ -109,15 +111,24 @@ html, body {
 
 .image-remove,
 .image-replace {
+    position: absolute;
+    bottom: -32px;
+    width: 80px;
     display: none;
-    color: #b7b7b7;
     text-align: center;
     font-size: 1rem;
     line-height: 32px;
     cursor: pointer;
+    background-color: #eee;
     font-family: Quicksand, Arial, Helvetica, sans-serif;
+    z-index: 99;
+}
+.image-replace {
+    left: -1px;
+    color: #b7b7b7;
 }
 .image-remove {
+    left: 79px;
     color: red;
 }
 .image-item:hover .image-remove,
