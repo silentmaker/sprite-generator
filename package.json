@@ -22,5 +22,6 @@
     "@types/react": "^16.4.1",
     "@types/react-dom": "^16.0.6",
     "typescript": "^2.9.2"
-  }
+  },
+  "homepage" : "https://silentmaker.github.io/sprite-generator"
 }
