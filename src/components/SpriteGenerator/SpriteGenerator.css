@@ -63,7 +63,7 @@ html, body {
     box-shadow: 0 0 16px 4px rgba(0, 0, 0, .1);
 }
 
-.image-container_empty {
+.image-container__empty {
     background-image: url(../../assets/images/upload.png);
     background-repeat: no-repeat;
     background-position: center center;
@@ -79,7 +79,7 @@ html, body {
     overflow: scroll;
 }
 
-.image-list_horizontal {
+.image-list__horizontal {
     flex-direction: row;
     flex-wrap: nowrap;
 }
@@ -89,7 +89,7 @@ html, body {
     flex-wrap: nowrap;
 }
 
-.image-list_horizontal_wrapped {
+.image-list__horizontal_wrapped {
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -99,62 +99,100 @@ html, body {
     flex-wrap: wrap;
 }
 
+.image-list__manage {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
 .image-item {
-    position: relative;
-    cursor: pointer;
     margin: 0;
     padding: 0;
-    border: dashed 1px #efefef;
 }
 
-.image-item:hover {
-    border: solid 1px #eee;
-    background-color: #eee;
-}
-
-.image-cover {
+.image-list__manage .image-item {
     width: auto;
 }
 
+.image-cover {
+    border: dashed 1px #efefef;
+    width: auto;
+}
+
+.image-cover:hover {
+    background-color: #eee;
+}
+
+.image-list__manage .image-cover {
+    float: left;
+    width: 80px;
+}
+
+.image-name,
 .image-remove,
-.image-replace {
-    position: absolute;
-    bottom: -32px;
+.image-replace,
+.image-upper,
+.image-lower {
+    float: right;
     width: 80px;
     display: none;
     text-align: center;
     font-size: 1rem;
-    line-height: 32px;
+    line-height: 40px;
+    margin: 20px 0;
     cursor: pointer;
-    background-color: #eee;
     font-family: Quicksand, Arial, Helvetica, sans-serif;
     z-index: 99;
+    color: #6E6D8E;
+    cursor: pointer;
 }
+
+.image-name {
+    width: 240px;
+    margin: 20px;
+    cursor: default;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
 .image-replace {
-    left: -1px;
-    color: #b7b7b7;
+    color: #298DC4;
 }
+
 .image-remove {
-    left: 79px;
-    color: red;
+    color: #FC4B76;
 }
-.image-item:hover .image-remove,
-.image-item:hover .image-replace {
+
+.image-list__manage .image-name,
+.image-list__manage .image-remove,
+.image-list__manage .image-replace,
+.image-list__manage .image-upper,
+.image-list__manage .image-lower {
     display: block;
 }
 
+.image-manage, 
 .image-clear {
     width: 120px;
     height: 48px;
     position: absolute;
-    right: 0;
     top: 0;
     text-align: center;
     line-height: 48px;
     cursor: pointer;
     font-family: Quicksand, Arial, Helvetica, sans-serif;
     font-size: 1.2rem;
-    color: #b7b7b7;
+}
+
+.image-clear {
+    right: 0;
+    color: #FC4B76;
+}
+
+.image-manage {
+    left: 0;
+    color: #298DC4;
 }
 
 .button {

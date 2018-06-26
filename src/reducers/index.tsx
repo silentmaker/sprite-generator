@@ -24,7 +24,9 @@ export function reducer(state: StoreState, action: GeneratorActions): StoreState
         case constants.MOVE_IMAGE:
             const tmpImages = state.originalImages.slice();
             const movingImage = tmpImages.splice(action.oldIndex, 1)[0];
-            return { ...state, originalImages: tmpImages.splice(action.newIndex, 0, movingImage)};
+
+            tmpImages.splice(action.newIndex, 0, movingImage);
+            return { ...state, originalImages: tmpImages};
         case constants.CLEAR_IMAGE:
             return { ...state, originalImages: [] };
     }

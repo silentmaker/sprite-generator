@@ -11,6 +11,7 @@ export interface SpriteImage {
 }
 
 export interface State {
+    isManaging: boolean;
     replacingIndex: number;
 }
 
@@ -46,7 +47,10 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         this.removeImage = this.removeImage.bind(this);
         this.replaceImage = this.replaceImage.bind(this);
         this.selectReplaceImage = this.selectReplaceImage.bind(this);
+        this.toggleManageImage = this.toggleManageImage.bind(this);
+        this.moveImage = this.moveImage.bind(this);
         this.state = {
+            isManaging: false,
             replacingIndex: 0
         };
     }
@@ -112,11 +116,26 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
             this.replaceInput.current.value = "";
         }
     }
+    public toggleManageImage() {
+        const status = !this.state.isManaging;
+
+        this.setState({
+            isManaging: status
+        });
+    }
+    public moveImage(event: React.SyntheticEvent<EventTarget>) {
+        const target = event.target as HTMLElement;
+        const direction = target.dataset.direction;
+        let index = parseInt(target.dataset.index || '', 10);
+        
+        this.props.onMoveImage(index, direction === 'up' ? --index : ++index);
+    }
     public render() {
         const { style, padding, images } = this.props;
+        const { isManaging } = this.state;
         const { activeUpload, fileInput, replaceInput, changeStyle, 
-            changePadding, changeImage, clearImage, 
-            removeImage, replaceImage, selectReplaceImage } = this;
+            changePadding, changeImage, clearImage, toggleManageImage, 
+            removeImage, replaceImage, selectReplaceImage, moveImage } = this;
         const styles = ['vertical', 'horizontal', 'vertical_wrapped', 'horizontal_wrapped'];
 
         return (
@@ -138,18 +157,34 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                         <input type="text" id="input-padding" value={padding} onChange={changePadding} />
                     </div>
 
-                    <div className={`image-container${ images.length ? '' : ' image-container_empty'}`}>
-                        <ul className={`image-list image-list__${style}`}>
+                    <div className={`image-container${ images.length ? '' : ' image-container__empty'}`}>
+                        <ul className={`image-list image-list__${ isManaging ? 'manage' : style }`}>
                             {images.map((image, index) => 
                                 <li className="image-item" key={index}>
-                                    <img className="image-cover" src={image.source} alt="IMAGE" />
+                                    {index < images.length - 1 ?
+                                        <div className="image-lower" 
+                                            data-index={index} data-direction="down"
+                                            onClick={moveImage}>Down</div> : 
+                                        <div className="image-lower" />
+                                    }
+                                    {index > 0 ?
+                                        <div className="image-upper" 
+                                            data-index={index} data-direction="up"
+                                            onClick={moveImage}>Up</div> :
+                                        <div className="image-upper" />
+                                    }
                                     <div className="image-remove" data-index={index} onClick={removeImage}>Delete</div>
                                     <div className="image-replace" data-index={index} onClick={replaceImage}>Replace</div>
+                                    <div className="image-name">{image.name}</div>
+                                    <img className="image-cover" src={image.source} alt="IMAGE" />
                                 </li>
                             )}
                         </ul>
                         
-                        {images.length && <div className="image-clear" onClick={clearImage}>Clear All</div>}
+                        {images.length && <div className="image-manage" onClick={toggleManageImage}>
+                            { isManaging ? 'Done' : 'Manage'}
+                        </div>}
+                        {isManaging&& <div className="image-clear" onClick={clearImage}>Clear All</div>}
                         <button className="button" onClick={activeUpload}>UPLOAD</button>
                     </div>
 
