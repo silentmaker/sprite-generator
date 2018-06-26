@@ -19,6 +19,7 @@ export function mapDispatchToProps(dispatch: Dispatch<actions.GeneratorActions>)
         onRemoveImage: (index: number) => dispatch(actions.removeImage(index)),
         onMoveImage: (oldIndex: number, newIndex: number) => dispatch(actions.moveImage(oldIndex, newIndex)),
         onReplaceImage: (index: number, image: SpriteImage) => dispatch(actions.replaceImage(index, image)),
+        onClearImage: () => dispatch(actions.clearImage())
     }
 }
 

@@ -28,7 +28,11 @@ export interface ReplaceImage {
     image: SpriteImage;
 }
 
-export type GeneratorActions = SetAlignStyle | SetImagePadding | AddImage | RemoveImage | MoveImage | ReplaceImage;
+export interface ClearImage {
+    type: constants.CLEAR_IMAGE;
+}
+
+export type GeneratorActions = SetAlignStyle | SetImagePadding | AddImage | RemoveImage | MoveImage | ReplaceImage | ClearImage;
 
 export function setAlignStyle(style: string): SetAlignStyle {
     return {
@@ -67,4 +71,10 @@ export function replaceImage(index: number, image: SpriteImage): ReplaceImage {
         image,
         type: constants.REPLACE_IMAGE
     };
+}
+
+export function clearImage():ClearImage {
+    return {
+        type: constants.CLEAR_IMAGE
+    }
 }

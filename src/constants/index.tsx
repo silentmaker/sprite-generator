@@ -16,4 +16,7 @@ export type REPLACE_IMAGE = typeof REPLACE_IMAGE;
 export const MOVE_IMAGE = 'MOVE_IMAGE';
 export type MOVE_IMAGE = typeof MOVE_IMAGE;
 
+export const CLEAR_IMAGE = 'CLEAR_IMAGE';
+export type CLEAR_IMAGE = typeof CLEAR_IMAGE;
+
 export enum AlignStyle {'vertical', 'horizontal'};

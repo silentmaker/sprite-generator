@@ -17,6 +17,8 @@ export function reducer(state: StoreState, action: GeneratorActions): StoreState
         case constants.MOVE_IMAGE:
             const movingImage = state.originalImages.splice(action.oldIndex, 1);
             return { ...state, originalImages: state.originalImages.splice(action.newIndex, 0, movingImage[0]) };
+        case constants.CLEAR_IMAGE:
+            return { ...state, originalImages: [] };
     }
     return state;
 }

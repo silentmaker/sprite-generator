@@ -93,17 +93,32 @@ html, body {
 
 .image-item {
     cursor: pointer;
-    margin: -2px -2px;
+    margin: 0;
+    padding: 0;
+    border: dashed 1px #efefef;
+}
+
+.image-item:hover {
+    border: none;
+    box-shadow: 0 4px 16px 4px rgba(0, 0, 0, .1);
 }
 
 .image-cover {
     width: auto;
-    border: dashed 1px #efefef;
 }
 
-.image-cover:hover {
-    border: none;
-    box-shadow: 0 4px 16px 4px rgba(0, 0, 0, .1);
+.image-clear {
+    width: 120px;
+    height: 48px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    line-height: 48px;
+    cursor: pointer;
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    color: #b7b7b7;
 }
 
 .button {

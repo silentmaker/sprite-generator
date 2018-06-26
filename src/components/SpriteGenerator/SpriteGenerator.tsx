@@ -22,6 +22,7 @@ export interface DispatchProps {
     onAddImage(images: SpriteImage[]): actions.AddImage;
     onRemoveImage(index: number): actions.RemoveImage;
     onMoveImage(oldIndex: number, newIndex: number): actions.MoveImage;
+    onClearImage(): actions.ClearImage
 }
 
 export class SpriteGenerator extends React.Component<StateProps & DispatchProps, object> {
@@ -34,6 +35,7 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         this.changeStyle = this.changeStyle.bind(this);
         this.changePadding = this.changePadding.bind(this);
         this.changeImage = this.changeImage.bind(this);
+        this.clearImage = this.clearImage.bind(this);
     }
     public activeUpload() {
         if(this.fileInput.current) {
@@ -62,9 +64,12 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
             this.fileInput.current.value = "";
         }
     }
+    public clearImage() {
+        this.props.onClearImage();
+    }
     public render() {
         const { style, padding, images } = this.props;
-        const { activeUpload, changeStyle, changePadding, changeImage, fileInput } = this;
+        const { activeUpload, changeStyle, changePadding, changeImage, clearImage, fileInput } = this;
         const styles = ['vertical', 'horizontal', 'vertical_wrapped', 'horizontal_wrapped'];
 
         return (
@@ -95,6 +100,7 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                             )}
                         </ul>
                         
+                        {images.length && <div className="image-clear" onClick={clearImage}>Clear All</div>}
                         <button className="button" onClick={activeUpload}>UPLOAD</button>
                     </div>
 
