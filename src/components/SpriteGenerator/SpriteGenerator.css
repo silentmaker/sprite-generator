@@ -1,0 +1,148 @@
+@font-face {
+    font-family: Quicksand;
+    src: url(../../assets/fonts/Quicksand-Bold.otf);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    background-color: #282C34;
+    color: #fff;
+}
+
+.app {
+    font-size: 1.6rem;
+}
+
+.app-header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 100px;
+    background-color: #20232A;
+    box-shadow: 2px 2px 16px 4px rgba(0, 0, 0, .1) inset;
+}
+
+.app-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 60px;
+}
+
+@keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.app-title {
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+}
+
+.app-form {
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-label {
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    margin-right: .6rem;
+}
+
+.image-container {
+    position: relative;
+    background-color: #fff;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.image-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 500px;
+    padding: 60px 20px 20px;
+    box-shadow: 0 0 16px 4px rgba(0, 0, 0, .1);
+    overflow: scroll;
+    background-color: #fff;
+}
+
+.image-list_horizontal {
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.image-list__vertical {
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.image-list_horizontal_wrapped {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.image-list__vertical_wrapped {
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.image-item {
+    cursor: pointer;
+    margin: -2px -2px;
+}
+
+.image-cover {
+    width: auto;
+    border: dashed 1px #efefef;
+}
+
+.image-cover:hover {
+    border: none;
+    box-shadow: 0 4px 16px 4px rgba(0, 0, 0, .1);
+}
+
+.button {
+    width: 160px;
+    height: 40px;
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    margin-left: -80px;
+    background-color: #2A4C80;
+    border: none;
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    color: #fff;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 1);
+    border-radius: 2px 2px 10px 10px;
+    box-shadow: 0 4px 16px 4px rgba(0, 0, 0, .15); 
+    cursor: pointer;
+    outline: 0;
+}
+.button:active {
+    top: 0;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 16px 4px rgba(0, 0, 0, .3); 
+}
+
+#input-padding,
+#input-align {
+    width: 200px;
+    height: 36px;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+    border: 0;
+    outline: 0;
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+}
+#input-padding {
+    width: 80px;
+    text-indent: 8px;
+}
