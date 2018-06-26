@@ -61,9 +61,10 @@ html, body {
     border-radius: 2px;
     background-color: #fff;
     box-shadow: 0 0 16px 4px rgba(0, 0, 0, .1);
+    padding: 60px 20px 40px;
 }
 
-.image-container__empty {
+.image-container__empty .image-list {
     background-image: url(../../assets/images/upload.png);
     background-repeat: no-repeat;
     background-position: center center;
@@ -75,7 +76,7 @@ html, body {
     justify-content: flex-start;
     align-items: flex-start;
     height: 500px;
-    padding: 60px 20px 40px;
+    border: dashed 1px #ccc;
     overflow: scroll;
 }
 
@@ -92,11 +93,13 @@ html, body {
 .image-list__horizontal_wrapped {
     flex-direction: row;
     flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .image-list__vertical_wrapped {
     flex-direction: column;
     flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .image-list__manage {
@@ -115,7 +118,6 @@ html, body {
 }
 
 .image-cover {
-    border: dashed 1px #efefef;
     width: auto;
 }
 
@@ -148,7 +150,7 @@ html, body {
 }
 
 .image-name {
-    width: 240px;
+    width: 160px;
     margin: 20px;
     cursor: default;
     overflow: hidden;
@@ -195,7 +197,25 @@ html, body {
     color: #298DC4;
 }
 
-.button {
+.generate-button {
+    width: 140px;
+    height: 48px;
+    line-height: 46px;
+    background-color: #49D1B3;
+    border: 0;
+    outline: 0;
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+    margin: 0 30px;
+    font-size: 1.2rem;
+    color: #fff;
+    border-radius: 24px;
+    cursor: pointer;
+}
+.generate-button:hover {
+    background-color: #1E987D;
+}
+
+.upload-button {
     width: 160px;
     height: 40px;
     position: absolute;
@@ -213,10 +233,16 @@ html, body {
     cursor: pointer;
     outline: 0;
 }
-.button:active {
+.upload-button:active {
     top: 0;
     border-radius: 0 0 10px 10px;
     box-shadow: 0 4px 16px 4px rgba(0, 0, 0, .3); 
+}
+
+.sprite-download {
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    color: #66DBFB;
 }
 
 #input-padding,
@@ -234,4 +260,23 @@ html, body {
 #input-padding {
     width: 80px;
     text-indent: 8px;
+}
+
+.sprite-style {
+    margin-top: 20px;
+}
+
+.style-code {
+    display: block;
+    width: auto;
+    padding: 30px;
+    margin-top: 20px;
+    max-height: 600px;
+    color: #444;
+    background: #eee;
+    border-radius: 10px;
+    word-wrap: normal;
+    overflow: auto;
+    font-family: Quicksand, Arial, Helvetica, sans-serif;
+    font-size: 1rem;
 }

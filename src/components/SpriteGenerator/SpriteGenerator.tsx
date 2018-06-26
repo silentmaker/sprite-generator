@@ -11,8 +11,11 @@ export interface SpriteImage {
 }
 
 export interface State {
+    isStyled: boolean;
     isManaging: boolean;
     replacingIndex: number;
+    spriteSource?: string;
+    spriteStyle?: string;
 }
 
 export interface StateProps {
@@ -49,7 +52,10 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         this.selectReplaceImage = this.selectReplaceImage.bind(this);
         this.toggleManageImage = this.toggleManageImage.bind(this);
         this.moveImage = this.moveImage.bind(this);
+        this.generateSprite = this.generateSprite.bind(this);
+        this.toggleStyle = this.toggleStyle.bind(this);
         this.state = {
+            isStyled: false,
             isManaging: false,
             replacingIndex: 0
         };
@@ -83,6 +89,12 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
     }
     public clearImage() {
         this.props.onClearImage();
+        this.setState({
+            isStyled: false,
+            isManaging: false,
+            spriteSource: '',
+            spriteStyle: ''
+        });
     }
     public removeImage(event: React.SyntheticEvent<EventTarget>) {
         const target = event.target as HTMLElement;
@@ -130,12 +142,58 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         
         this.props.onMoveImage(index, direction === 'up' ? --index : ++index);
     }
+    public generateSprite() {
+        this.setState({
+            isStyled: false,
+            spriteSource: ''
+        });
+
+        const imgOrigin = { x: 0, y: 0 };
+        const canvas: any = document.getElementById('sprite-canvas');
+        const lastIndex = this.props.images.length - 1;
+        const lastImage: any = document.getElementById(`image-${lastIndex}`);
+        let spriteStyle = '';
+
+        canvas.width = lastImage.offsetLeft > 1024 ? (lastImage.offsetLeft + lastImage.clientWidth) : 1024;
+        canvas.heigh = lastImage.offsetTop + lastImage.clientHeight;
+        
+        const context = canvas.getContext('2d');
+        context.globalAlpha = 1.0;
+        
+        this.props.images.map((image, index) => {
+            const imageElement = document.getElementById(`image-${index}`);
+            if(imageElement) {
+                if (index === 0) {
+                    imgOrigin.x = imageElement.offsetLeft;
+                    imgOrigin.y = imageElement.offsetTop;
+                }
+
+                context.drawImage(imageElement, 
+                    imageElement.offsetLeft - imgOrigin.x, 
+                    imageElement.offsetTop - imgOrigin.y);
+
+                spriteStyle += `.bg-sprite-${index+1} {\n    width: ${imageElement.clientWidth}px;\n    height: ${imageElement.clientHeight}px;\n    background-position: -${imageElement.offsetLeft - imgOrigin.x}px -${imageElement.offsetTop - imgOrigin.y}px;\n}\n\n`;
+            }
+        });
+
+        this.setState({
+            spriteSource: canvas.toDataURL(),
+            spriteStyle
+        });
+    }
+    public toggleStyle() {
+        const styled = !this.state.isStyled;
+
+        this.setState({
+            isStyled: styled
+        });
+    }
     public render() {
         const { style, padding, images } = this.props;
-        const { isManaging } = this.state;
+        const { isManaging, spriteSource, isStyled, spriteStyle } = this.state;
         const { activeUpload, fileInput, replaceInput, changeStyle, 
             changePadding, changeImage, clearImage, toggleManageImage, 
-            removeImage, replaceImage, selectReplaceImage, moveImage } = this;
+            removeImage, replaceImage, selectReplaceImage, moveImage, generateSprite, toggleStyle } = this;
         const styles = ['vertical', 'horizontal', 'vertical_wrapped', 'horizontal_wrapped'];
 
         return (
@@ -155,6 +213,11 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
 
                         <label className="app-label ml-l" htmlFor="input-padding">Padding</label>
                         <input type="text" id="input-padding" value={padding} onChange={changePadding} />
+
+                        {images.length > 0 && 
+                            <button className="generate-button" onClick={generateSprite}>Generate</button>
+                        }
+                        {spriteSource && <a className="sprite-download" href={spriteSource} download="sprite.png">Download</a>}
                     </div>
 
                     <div className={`image-container${ images.length ? '' : ' image-container__empty'}`}>
@@ -176,22 +239,31 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                                     <div className="image-remove" data-index={index} onClick={removeImage}>Delete</div>
                                     <div className="image-replace" data-index={index} onClick={replaceImage}>Replace</div>
                                     <div className="image-name">{image.name}</div>
-                                    <img className="image-cover" src={image.source} alt="IMAGE" />
+                                    <img id={`image-${index}`} className="image-cover" src={image.source} alt="IMAGE" />
                                 </li>
                             )}
                         </ul>
+
+                        {spriteSource && 
+                            <div className="sprite-style">
+                                <a href="javascript:void(0);" className="sprite-download"
+                                    onClick={ toggleStyle }>{`${isStyled ? 'Hide' : 'Show'} CSS Rules`}</a>
+                                {isStyled && <pre className="style-code">{ spriteStyle }</pre>}
+                            </div>
+                        }
                         
                         {images.length && <div className="image-manage" onClick={toggleManageImage}>
                             { isManaging ? 'Done' : 'Manage'}
                         </div>}
                         {isManaging&& <div className="image-clear" onClick={clearImage}>Clear All</div>}
-                        <button className="button" onClick={activeUpload}>UPLOAD</button>
+                        <button className="upload-button" onClick={activeUpload}>UPLOAD</button>
                     </div>
 
                     <input type="file" name="addImage" className="hidden" accept="images/*" multiple={true} 
                         ref={fileInput} onChange={changeImage} />
                     <input type="file" name="replaceImage" className="hidden" accept="images/*" 
                         ref={replaceInput} onChange={selectReplaceImage} />
+                    <canvas id="sprite-canvas" className="hidden" />
                 </div>
             </div>
         );

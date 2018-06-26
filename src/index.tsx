@@ -18,7 +18,7 @@ const store = createStore<StoreState, GeneratorActions, {}, {}>(reducer, {
 });
 
 store.subscribe(() => {
-    console.log(store.getState());
+    console.info('Current Store: ', store.getState());
 });
 
 import './assets/styles/reset.css';
