@@ -59,6 +59,14 @@ html, body {
     max-width: 1024px;
     margin: 0 auto;
     border-radius: 2px;
+    background-color: #fff;
+}
+
+.image-container_empty {
+    background-image: url(../../assets/images/upload.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 6rem;
 }
 
 .image-list {
@@ -66,10 +74,9 @@ html, body {
     justify-content: flex-start;
     align-items: flex-start;
     height: 500px;
-    padding: 60px 20px 20px;
+    padding: 60px 20px 40px;
     box-shadow: 0 0 16px 4px rgba(0, 0, 0, .1);
     overflow: scroll;
-    background-color: #fff;
 }
 
 .image-list_horizontal {

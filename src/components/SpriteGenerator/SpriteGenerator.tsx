@@ -138,7 +138,7 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                         <input type="text" id="input-padding" value={padding} onChange={changePadding} />
                     </div>
 
-                    <div className="image-container">
+                    <div className={`image-container${ images.length ? '' : ' image-container_empty'}`}>
                         <ul className={`image-list image-list__${style}`}>
                             {images.map((image, index) => 
                                 <li className="image-item" key={index}>
