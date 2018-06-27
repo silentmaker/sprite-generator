@@ -240,7 +240,7 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                                     <div className="image-replace" data-index={index} onClick={replaceImage}>Replace</div>
                                     <div className="image-name">{image.name}</div>
                                     <img id={`image-${index}`} className="image-cover" 
-                                        style={{margin: `${padding}px`}}
+                                        style={{margin: `${isManaging ? 0 : padding}px`}}
                                         src={image.source} alt="IMAGE" />
                                 </li>
                             )}
