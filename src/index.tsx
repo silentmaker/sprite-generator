@@ -13,7 +13,7 @@ import SpriteGenerator from './containers/SpriteGenerator';
 
 const store = createStore<StoreState, GeneratorActions, {}, {}>(reducer, {
     alignStyle: 'horizontal',
-    imagePadding: 20,
+    imagePadding: 0,
     originalImages: []
 });
 

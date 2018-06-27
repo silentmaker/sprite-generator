@@ -155,7 +155,7 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         let spriteStyle = '';
 
         canvas.width = lastImage.offsetLeft > 1024 ? (lastImage.offsetLeft + lastImage.clientWidth) : 1024;
-        canvas.heigh = lastImage.offsetTop + lastImage.clientHeight;
+        canvas.height = lastImage.offsetTop + lastImage.clientHeight;
         
         const context = canvas.getContext('2d');
         context.globalAlpha = 1.0;
@@ -164,8 +164,8 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
             const imageElement = document.getElementById(`image-${index}`);
             if(imageElement) {
                 if (index === 0) {
-                    imgOrigin.x = imageElement.offsetLeft;
-                    imgOrigin.y = imageElement.offsetTop;
+                    imgOrigin.x = imageElement.offsetLeft - this.props.padding;
+                    imgOrigin.y = imageElement.offsetTop - this.props.padding;
                 }
 
                 context.drawImage(imageElement, 
@@ -239,7 +239,9 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                                     <div className="image-remove" data-index={index} onClick={removeImage}>Delete</div>
                                     <div className="image-replace" data-index={index} onClick={replaceImage}>Replace</div>
                                     <div className="image-name">{image.name}</div>
-                                    <img id={`image-${index}`} className="image-cover" src={image.source} alt="IMAGE" />
+                                    <img id={`image-${index}`} className="image-cover" 
+                                        style={{margin: `${padding}px`}}
+                                        src={image.source} alt="IMAGE" />
                                 </li>
                             )}
                         </ul>
