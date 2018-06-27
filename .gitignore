@@ -7,8 +7,7 @@
 /coverage
 
 # production
-# /build
-# for serve on github page
+/build
 
 # misc
 .DS_Store
