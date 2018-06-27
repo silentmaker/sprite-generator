@@ -6,8 +6,8 @@
 
 ## How it Looks
 
-![Screenshot](./public/screenshot.jpg)
+![Screen](./public/screenshot.jpg)
 
 ## Where to use
 
-[Portal](https://silentmaker.github.io/sprite-generator/build/index.html)
+[Portal Gate](https://silentmaker.github.io/sprite-generator)
