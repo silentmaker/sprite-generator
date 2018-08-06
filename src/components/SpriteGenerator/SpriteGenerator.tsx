@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import './SpriteGenerator.css';
-import logo from '../../assets/images/logo.svg';
+import logo from '../../assets/images/logo.png';
 import * as actions from '../../actions/index';
 
 export interface SpriteImage {
