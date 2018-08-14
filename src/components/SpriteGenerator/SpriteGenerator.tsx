@@ -21,12 +21,14 @@ export interface State {
 export interface StateProps {
     style: string;
     padding: number;
+    size: number;
     images: SpriteImage[];
 }
 
 export interface DispatchProps {
     onSetStyle(style: string): actions.SetAlignStyle;
     onSetPadding(padding: number): actions.SetImagePadding;
+    onSetSize(size: number): actions.SetImageSize;
     onAddImage(images: SpriteImage[]): actions.AddImage;
     onRemoveImage(index: number): actions.RemoveImage;
     onReplaceImage(index: number, image: SpriteImage): actions.ReplaceImage;
@@ -45,6 +47,7 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         this.activeUpload = this.activeUpload.bind(this);
         this.changeStyle = this.changeStyle.bind(this);
         this.changePadding = this.changePadding.bind(this);
+        this.changeSize = this.changeSize.bind(this);
         this.changeImage = this.changeImage.bind(this);
         this.clearImage = this.clearImage.bind(this);
         this.removeImage = this.removeImage.bind(this);
@@ -70,6 +73,9 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
     }
     public changePadding(event: React.ChangeEvent<HTMLInputElement>) {
         this.props.onSetPadding(parseInt(event.target.value, 10) || 0);
+    }
+    public changeSize(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.onSetSize(parseInt(event.target.value, 10) || 0);
     }
     public changeImage(event: React.ChangeEvent<HTMLInputElement>) {
         const tmpImages = [];
@@ -154,8 +160,8 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         const lastImage: any = document.getElementById(`image-${lastIndex}`);
         let spriteStyle = '';
 
-        canvas.width = lastImage.offsetLeft > 1024 ? (lastImage.offsetLeft + lastImage.clientWidth) : 1024;
-        canvas.height = lastImage.offsetTop + lastImage.clientHeight;
+        canvas.width = lastImage.offsetLeft - 21 + lastImage.clientWidth;
+        canvas.height = lastImage.offsetTop - 61 + lastImage.clientHeight;
         
         const context = canvas.getContext('2d');
         context.globalAlpha = 1.0;
@@ -189,10 +195,10 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
         });
     }
     public render() {
-        const { style, padding, images } = this.props;
+        const { style, padding, size, images } = this.props;
         const { isManaging, spriteSource, isStyled, spriteStyle } = this.state;
         const { activeUpload, fileInput, replaceInput, changeStyle, 
-            changePadding, changeImage, clearImage, toggleManageImage, 
+            changePadding, changeSize, changeImage, clearImage, toggleManageImage, 
             removeImage, replaceImage, selectReplaceImage, moveImage, generateSprite, toggleStyle } = this;
         const styles = ['vertical', 'horizontal', 'vertical_wrapped', 'horizontal_wrapped'];
 
@@ -216,6 +222,11 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                         <label className="app-label ml-l" htmlFor="input-padding">
                             Padding&nbsp;
                             <input type="text" id="input-padding" value={padding} onChange={changePadding} />
+                        </label>
+
+                        <label className="app-label ml-l" htmlFor="input-size">
+                            Size&nbsp;
+                            <input type="text" id="input-size" value={size} onChange={changeSize} />
                         </label>
 
                         {images.length > 0 && 
@@ -244,7 +255,8 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                                     <div className="image-replace" data-index={index} onClick={replaceImage}>Replace</div>
                                     <div className="image-name">{image.name}</div>
                                     <img id={`image-${index}`} className="image-cover" 
-                                        style={{margin: `${isManaging ? 0 : padding}px`}}
+                                        style={{ padding: isManaging ? 0 : padding,
+                                            width: isManaging ? 80 : (size || 'auto') }}
                                         src={image.source} alt="IMAGE" />
                                 </li>
                             )}

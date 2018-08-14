@@ -244,7 +244,7 @@ html, body {
     font-size: 1.2rem;
     color: #66DBFB;
 }
-
+#input-size,
 #input-padding,
 #input-align {
     width: 200px;
@@ -257,6 +257,7 @@ html, body {
     outline: 0;
     font-family: Quicksand, Arial, Helvetica, sans-serif;
 }
+#input-size,
 #input-padding {
     width: 80px;
     text-indent: 8px;

@@ -8,6 +8,8 @@ export function reducer(state: StoreState, action: GeneratorActions): StoreState
             return { ...state, alignStyle: action.style };
         case constants.SET_IMAGE_PADDING:
             return { ...state, imagePadding: action.padding };
+        case constants.SET_IMAGE_SIZE:
+            return { ...state, imageSize: action.size };
         case constants.ADD_IMAGE:
             return { ...state, originalImages: state.originalImages.concat(action.images) };
         case constants.REMOVE_IMAGE:

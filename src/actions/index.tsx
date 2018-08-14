@@ -9,6 +9,10 @@ export interface SetImagePadding {
     type: constants.SET_IMAGE_PADDING;
     padding: number
 }
+export interface SetImageSize {
+    type: constants.SET_IMAGE_SIZE;
+    size: number
+}
 export interface AddImage {
     type: constants.ADD_IMAGE;
     images: SpriteImage[];
@@ -32,7 +36,7 @@ export interface ClearImage {
     type: constants.CLEAR_IMAGE;
 }
 
-export type GeneratorActions = SetAlignStyle | SetImagePadding | AddImage | RemoveImage | MoveImage | ReplaceImage | ClearImage;
+export type GeneratorActions = SetAlignStyle | SetImagePadding | SetImageSize | AddImage | RemoveImage | MoveImage | ReplaceImage | ClearImage;
 
 export function setAlignStyle(style: string): SetAlignStyle {
     return {
@@ -44,6 +48,12 @@ export function setImagePadding(padding: number): SetImagePadding {
     return {
         padding,
         type: constants.SET_IMAGE_PADDING,
+    };
+}
+export function SetImageSize(size: number): SetImageSize {
+    return {
+        size,
+        type: constants.SET_IMAGE_SIZE,
     };
 }
 export function addImage(images: SpriteImage[]): AddImage {

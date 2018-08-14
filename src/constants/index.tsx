@@ -4,6 +4,9 @@ export type SET_ALIGN_STYLE = typeof SET_ALIGN_STYLE;
 export const SET_IMAGE_PADDING = 'SET_IMAGE_PADDING';
 export type SET_IMAGE_PADDING = typeof SET_IMAGE_PADDING;
 
+export const SET_IMAGE_SIZE = 'SET_IMAGE_SIZE';
+export type SET_IMAGE_SIZE = typeof SET_IMAGE_SIZE;
+
 export const ADD_IMAGE = 'ADD_IMAGE';
 export type ADD_IMAGE = typeof ADD_IMAGE;
 
