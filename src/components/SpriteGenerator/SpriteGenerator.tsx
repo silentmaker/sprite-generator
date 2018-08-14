@@ -204,15 +204,19 @@ export class SpriteGenerator extends React.Component<StateProps & DispatchProps,
                 </header>
                 <div>
                     <div className="app-form">
-                        <label className="app-label" htmlFor="input-align">Align</label>
-                        <select id="input-align" value={style} onChange={changeStyle}>
-                            {styles.map((alignStyle, index) => 
-                                <option key={index} value={alignStyle}>{alignStyle}</option>
-                            )}
-                        </select>
+                        <label className="app-label" htmlFor="input-align">
+                            Align&nbsp;
+                            <select id="input-align" value={style} onChange={changeStyle}>
+                                {styles.map((alignStyle, index) => 
+                                    <option key={index} value={alignStyle}>{alignStyle}</option>
+                                )}
+                            </select>
+                        </label>
 
-                        <label className="app-label ml-l" htmlFor="input-padding">Padding</label>
-                        <input type="text" id="input-padding" value={padding} onChange={changePadding} />
+                        <label className="app-label ml-l" htmlFor="input-padding">
+                            Padding&nbsp;
+                            <input type="text" id="input-padding" value={padding} onChange={changePadding} />
+                        </label>
 
                         {images.length > 0 && 
                             <button className="generate-button" onClick={generateSprite}>Generate</button>

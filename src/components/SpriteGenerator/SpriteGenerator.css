@@ -41,16 +41,15 @@ html, body {
 }
 
 .app-form {
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 40px 20px;
 }
 
 .app-label {
+    display: inline-block;
     font-family: Quicksand, Arial, Helvetica, sans-serif;
     font-size: 1.4rem;
     margin-right: .6rem;
+    margin-bottom: 1rem;
 }
 
 .image-container {
@@ -115,6 +114,7 @@ html, body {
 
 .image-list__manage .image-item {
     width: auto;
+    margin-top: 3rem;
 }
 
 .image-cover {
